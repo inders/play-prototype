@@ -11,16 +11,17 @@
     <script>
        $('#search').typeahead({
             name: 'accounts',
-            remote: '/query/%QUERY',
-            filter:
-                    function(resp) {
-                        var dataset = [];
-                        console.log(resp); // debug the response here
+            remote: {
+                url: '/query/%QUERY',
+                filter: function (parsedResponse) {
+                    // parsedResponse is the array returned from your backend
+                    console.log(parsedResponse);
 
-                        // do some filtering if needed with the response
+                    // do whatever processing you need here
+                    return parsedResponse;
+                }
+            }
 
-                        return dataset;
-                    }
         });
 
 
