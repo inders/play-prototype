@@ -1,6 +1,7 @@
 package controllers;
 
 import play.data.*;
+import play.libs.Json;
 import play.mvc.*;
 
 import models.Task;
@@ -20,6 +21,12 @@ public class Application extends Controller {
         );
     }
 
+    public static Result query(String query){
+        System.out.println("Query " + query);
+        System.out.println("Response " + Json.toJson("inder"));
+        return Results.ok(Json.toJson("inder"));
+    }
+
     public static Result newTask() {
         Form<Task> filledForm = taskForm.bindFromRequest();
         if(filledForm.hasErrors()) {
@@ -27,7 +34,7 @@ public class Application extends Controller {
                     views.html.index.render(Task.all(), filledForm)
             );
         } else {
-            Task.create(filledForm.get());
+         //   Task.create(filledForm.get());
             return redirect(routes.Application.tasks());
         }    }
 
